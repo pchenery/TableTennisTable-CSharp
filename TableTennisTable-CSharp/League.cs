@@ -8,7 +8,7 @@ namespace TableTennisTable_CSharp
     public class League
     {
         private List<LeagueRow> _rows;
-        private List<string> forfeitList;
+        private List<string> forfeitList = new List<string>();
 
         public League() : this(new List<LeagueRow>())
         {
@@ -69,7 +69,6 @@ namespace TableTennisTable_CSharp
                 RemoveFromForfeit(forfeit);
                 RemoveFromForfeit(winner);
             }
-
         }
 
         private int GetForfeitCount(string forfeit)

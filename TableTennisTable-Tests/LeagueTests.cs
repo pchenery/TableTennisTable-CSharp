@@ -68,7 +68,45 @@ namespace TableTennisTable_Tests
 
             Assert.AreEqual("Ted", rows.First().GetPlayers().First());
             Assert.AreNotEqual("Bob", rows.First().GetPlayers().First());
+        }
 
+        [TestMethod]
+        public void TestForfeit()
+        {
+            // Given
+            League league = new League();
+
+            // When
+            league.AddPlayer("Bob");
+            league.AddPlayer("Ted");
+
+            // Then
+            league.RecordForfeit("Bob", "Ted");
+            var rows = league.GetRows();
+            
+            Assert.AreEqual("Bob", rows.First().GetPlayers().First());
+            Assert.AreNotEqual("Ted", rows.First().GetPlayers().First());
+        }
+
+        [TestMethod]
+        public void TestThreeForfeits()
+        {
+            // Given
+            League league = new League();
+
+            // When
+            league.AddPlayer("Bob");
+            league.AddPlayer("Ted");
+            league.AddPlayer("Cara");
+
+            // Then
+            league.RecordForfeit("Bob", "Ted");
+            league.RecordForfeit("Bob", "Ted");
+            league.RecordForfeit("Bob", "Cara");
+            var rows = league.GetRows();
+
+            Assert.AreEqual("Cara", rows.First().GetPlayers().First());
+            Assert.AreNotEqual("Bob", rows.First().GetPlayers().First());
 
         }
 

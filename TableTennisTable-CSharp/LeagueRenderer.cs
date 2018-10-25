@@ -41,11 +41,12 @@ namespace TableTennisTable_CSharp
             return $"{padding}{rowBoundary}\r\n{padding}{allNames}\r\n{padding}{rowBoundary}";
         }
 
-        private string FormatName(string name)
+        public string FormatName(string name)
         {
             if (name.Length > MaxNameLength)
             {
-                return name.Take(MaxNameLength - 3) + "...";
+                //return name.Take(MaxNameLength - 3) + "...";
+                return name.Substring(0, MaxNameLength - 3) + "...";
             }
 
             int leftPad = (MaxNameLength - name.Length) / 2;

@@ -17,7 +17,21 @@ namespace TableTennisTable_Tests
             league.AddPlayer("Bob");
 
             // Then
-            //StringAssert.That(leagueRenderer.)
+            Assert.AreEqual(leagueRenderer.FormatName("Bob"), "       Bob       ");
+        }
+
+        [TestMethod]
+        public void TestFormatNameGreaterThan17Characters()
+        {
+            // Given
+            LeagueRenderer leagueRenderer = new LeagueRenderer();
+            League league = new League();
+
+            // When
+            league.AddPlayer("LongerThanSeventeen");
+
+            // Then
+            Assert.AreEqual(leagueRenderer.FormatName("LongerThanSeventeen"), "LongerThanSeve...");
         }
     }
 }

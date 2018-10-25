@@ -38,7 +38,7 @@ namespace TableTennisTable_CSharp
 
                 if (command.StartsWith("forfeit"))
                 {
-                    string playersString = command.Substring(11);
+                    string playersString = command.Substring(8);
                     var players = playersString.Split(' ');
                     string forfeit = players[0];
                     string winner = players[1];

@@ -28,8 +28,6 @@ namespace TableTennisTable_CSharp
                 {
                     Console.WriteLine(game.SendCommand(command));
                 }
-
-
             }
         }
     }
