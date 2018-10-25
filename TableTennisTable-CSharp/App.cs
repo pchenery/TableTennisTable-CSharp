@@ -36,6 +36,16 @@ namespace TableTennisTable_CSharp
                     return $"Recorded {winner} win against {loser}";
                 }
 
+                if (command.StartsWith("forfeit"))
+                {
+                    string playersString = command.Substring(11);
+                    var players = playersString.Split(' ');
+                    string forfeit = players[0];
+                    string winner = players[1];
+                    _league.RecordForfeit(forfeit, winner);
+                    return $"Recorded {forfeit} forfeit against {winner}";
+                }
+
                 if (command == "print")
                 {
                     return _leagueRenderer.Render(_league);

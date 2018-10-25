@@ -8,6 +8,7 @@ namespace TableTennisTable_CSharp
     public class League
     {
         private List<LeagueRow> _rows;
+        private List<string> forfeitList;
 
         public League() : this(new List<LeagueRow>())
         {
@@ -53,6 +54,27 @@ namespace TableTennisTable_CSharp
 
             _rows[winnerRowIndex].Swap(winner, loser);
             _rows[loserRowIndex].Swap(loser, winner);
+        }
+
+        public void RecordForfeit(string forfeit, string winner)
+        {
+            CheckPlayerIsInGame(forfeit);
+            CheckPlayerIsInGame(winner);
+
+            AddToForfeit(forfeit);
+
+            if (GetForfeitCount(forfeit) == 3)
+            {
+                RecordWin(winner, forfeit);
+                RemoveFromForfeit(forfeit);
+                RemoveFromForfeit(winner);
+            }
+
+        }
+
+        private int GetForfeitCount(string forfeit)
+        {
+            return forfeitList.Count(player => player == forfeit);
         }
 
         public string GetWinner()
@@ -112,6 +134,16 @@ namespace TableTennisTable_CSharp
         private int FindPlayerRowIndex(string player)
         {
             return _rows.FindIndex(row => row.Includes(player));
+        }
+
+        private void AddToForfeit(string forfeit)
+        {
+            forfeitList.Add(forfeit);
+        }
+
+        private void RemoveFromForfeit(string forfeit)
+        {
+            forfeitList.RemoveAll(player => player == forfeit);
         }
     }
 }

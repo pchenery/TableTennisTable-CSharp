@@ -27,7 +27,7 @@ namespace TableTennisTable_Tests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void TestNotAddSamePlayer()
+        public void TestAddSamePlayerThrowsException()
         {
             // Given
             League league = new League();
@@ -63,6 +63,12 @@ namespace TableTennisTable_Tests
             league.AddPlayer("Ted");
 
             // Then
+            league.RecordWin("Ted", "Bob");
+            var rows = league.GetRows();
+
+            Assert.AreEqual("Ted", rows.First().GetPlayers().First());
+            Assert.AreNotEqual("Bob", rows.First().GetPlayers().First());
+
 
         }
 
