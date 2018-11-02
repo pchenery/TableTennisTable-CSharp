@@ -8,7 +8,7 @@ namespace TableTennisTable_CSharp
     public class League
     {
         private List<LeagueRow> _rows;
-        private List<string> forfeitList = new List<string>();
+        private Dictionary<string, int> forfeitDict = new Dictionary<string, int>();
 
         public League() : this(new List<LeagueRow>())
         {
@@ -61,7 +61,7 @@ namespace TableTennisTable_CSharp
             CheckPlayerIsInGame(forfeit);
             CheckPlayerIsInGame(winner);
 
-            AddToForfeit(forfeit);
+            AddorUpdateForfeit(forfeit);
 
             if (GetForfeitCount(forfeit) == 3)
             {
@@ -73,7 +73,7 @@ namespace TableTennisTable_CSharp
 
         private int GetForfeitCount(string forfeit)
         {
-            return forfeitList.Count(player => player == forfeit);
+            return forfeitDict[forfeit];
         }
 
         public string GetWinner()
@@ -135,14 +135,21 @@ namespace TableTennisTable_CSharp
             return _rows.FindIndex(row => row.Includes(player));
         }
 
-        private void AddToForfeit(string forfeit)
+        private void AddorUpdateForfeit(string forfeit)
         {
-            forfeitList.Add(forfeit);
+            if (forfeitDict.ContainsKey(forfeit))
+            {
+                forfeitDict[forfeit] += 1;
+            }
+            else
+            {
+                forfeitDict.Add(forfeit, 1);
+            }
         }
 
         private void RemoveFromForfeit(string forfeit)
         {
-            forfeitList.RemoveAll(player => player == forfeit);
+            forfeitDict.Remove(forfeit);
         }
     }
 }
