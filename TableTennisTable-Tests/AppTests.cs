@@ -20,5 +20,21 @@ namespace TableTennisTable_Tests
 
             Assert.AreEqual("Rendered League", app.SendCommand("print"));
         }
+
+        [TestMethod]
+        public void TestSave()
+        {
+            var league = new League();
+            var renderer = new LeagueRenderer();
+            var file = new Mock<IFileService>();
+
+            file.Setup(f => f.Save("Name", league));
+
+            var app = new App(league, renderer, null);
+            app.SendCommand("save");
+
+            //Assert.AreEqual("PathName", app.SendCommand("save"));
+            file.Verify(f => f.Save("Name", league));
+        }
     }
 }
