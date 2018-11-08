@@ -22,19 +22,33 @@ namespace TableTennisTable_Tests
         }
 
         [TestMethod]
-        public void TestSave()
+        public void TestFileSave()
         {
             var league = new League();
             var renderer = new LeagueRenderer();
             var file = new Mock<IFileService>();
 
-            file.Setup(f => f.Save("Name", league));
+            file.Setup(f => f.Save("TestFile", league));
 
-            var app = new App(league, renderer, null);
-            app.SendCommand("save");
+            var app = new App(league, renderer, file.Object);
 
-            //Assert.AreEqual("PathName", app.SendCommand("save"));
-            file.Verify(f => f.Save("Name", league));
+            Assert.AreEqual("Saved TestFile", app.SendCommand("save TestFile"));
+            file.Verify(f => f.Save("TestFile", league));
+        }
+
+        [TestMethod]
+        public void TestFileLoad()
+        {
+            var league = new League();
+            var renderer = new LeagueRenderer();
+            var file = new Mock<IFileService>();
+
+            file.Setup(f => f.Load("TestFile"));
+
+            var app = new App(league, renderer, file.Object);
+
+            Assert.AreEqual("Loaded TestFile", app.SendCommand("load TestFile"));
+            file.Verify(f => f.Load("TestFile"));
         }
     }
 }
