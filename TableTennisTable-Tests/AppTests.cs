@@ -31,8 +31,10 @@ namespace TableTennisTable_Tests
             file.Setup(f => f.Save("TestFile", league));
 
             var app = new App(league, renderer, file.Object);
+            var actual = app.SendCommand("save TestFile");
+            var expected = "Saved TestFile";
 
-            Assert.AreEqual("Saved TestFile", app.SendCommand("save TestFile"));
+            Assert.AreEqual(expected, actual);
             file.Verify(f => f.Save("TestFile", league));
         }
 
@@ -46,8 +48,11 @@ namespace TableTennisTable_Tests
             file.Setup(f => f.Load("TestFile"));
 
             var app = new App(league, renderer, file.Object);
+            var actual = app.SendCommand("load TestFile");
+            var expected = "Loaded TestFile";
 
-            Assert.AreEqual("Loaded TestFile", app.SendCommand("load TestFile"));
+            Assert.AreEqual(expected, actual);
+
             file.Verify(f => f.Load("TestFile"));
         }
     }
