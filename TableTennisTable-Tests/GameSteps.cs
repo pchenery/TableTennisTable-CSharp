@@ -14,6 +14,9 @@ namespace TableTennisTable_Tests
         // Last response
         private String response;
 
+        // Test Game File
+        private string TestFile = "C:\\Test\\game";
+
         [BeforeScenario]
         public void CreateApp()
         {
@@ -40,5 +43,26 @@ namespace TableTennisTable_Tests
         {
             Assert.AreEqual(expected, response);
         }
+
+        [Given("The league has saved game")]
+        public void GivenTheLeagueHasSavedGame()
+        {
+            //Save Game
+        }
+
+        [When("I load the league")]
+        public void WhenILoadTheLeague()
+        {
+            response = app.SendCommand("load C:\\test\\game");
+        }
+
+        [Then("I should see players")]
+        public void ThenIShouldSeeThatThereArePlayers(string expected)
+        {
+            Assert.AreEqual(expected, response);
+        }
+
+
+
     }
 }
