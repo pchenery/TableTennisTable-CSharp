@@ -20,5 +20,16 @@ namespace TableTennisTable_Tests
         {
             return new App(new League(), new LeagueRenderer(), new FileService());
         }
+
+        [TestMethod]
+        public void TestLoadsGame()
+        {
+            var app = CreateApp();
+
+            var actual = app.SendCommand("load C:\\test\\game");
+            var expected = "Loaded C:\\test\\game";
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
